@@ -278,32 +278,39 @@ AI:   [Implements step by step, running verifications]
 
 ## Installation
 
-### Option 1: Symlink (Recommended)
-
-Keeps your projects in sync with the latest rigor pack:
+### Quick Start
 
 ```bash
+# 1. Clone the repo
+git clone https://github.com/builtbylee/rigor-mode.git ~/rigor-mode
+
+# 2. Link to your project
 cd /path/to/your/project
-ln -s "/Users/lee/Downloads/antigravity-rigor-pack/.agent" .agent
+ln -s ~/rigor-mode/.agent .agent
+
+# 3. (Optional) Set up project context
+cp .agent/templates/context.md .agent/context.md
 ```
+
+### Option 1: Symlink (Recommended)
+
+Keeps your projects in sync with the latest version:
+
+```bash
+ln -s ~/rigor-mode/.agent .agent
+```
+
+Update anytime with: `cd ~/rigor-mode && git pull`
 
 ### Option 2: Copy
 
 For project-specific customization:
 
 ```bash
-cd /path/to/your/project
-cp -r "/Users/lee/Downloads/antigravity-rigor-pack/.agent" .agent
+cp -r ~/rigor-mode/.agent .agent
 ```
 
-### Setup Project Context
-
-After installation, create your project context:
-
-```bash
-cp .agent/templates/context.md .agent/context.md
-# Edit with your project's details
-```
+See [INSTALL.md](INSTALL.md) for detailed instructions and troubleshooting.
 
 ---
 
@@ -404,4 +411,4 @@ The goal isn't to slow down. It's to go fast *correctly*.
 
 ---
 
-*Built for [Antigravity](https://antigravity.dev) projects.*
+*Works with Claude Code, Cursor, Windsurf, and other AI coding assistants.*

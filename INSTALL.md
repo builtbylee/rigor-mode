@@ -1,68 +1,193 @@
-# Antigravity Rigor Pack
+# Rigor Mode Installation
 
-This is a portable, cross-project rigor setup for Antigravity.
+A structured framework for AI-assisted development. Works with Claude Code, Cursor, Windsurf, and other AI coding assistants.
 
-It is designed to give you “everything-claude-code”-level discipline using:
+## Quick Install
 
-- Global **User Rules** (always-on)
-- Reusable **Skills** (domain playbooks)
-- Reusable **Workflows** (repeatable task sequences)
-- Optional **Agent role cards** (planner/reviewer/etc.)
+### Step 1: Clone the repo
 
-This pack is meant to be copied to any machine.
+```bash
+git clone https://github.com/builtbylee/rigor-mode.git ~/rigor-mode
+```
 
-## Install (Global)
+### Step 2: Link to your project
 
-### 1) User Rules (Global)
+```bash
+cd /path/to/your/project
+ln -s ~/rigor-mode/.agent .agent
+```
 
-1. Open Antigravity settings
-2. Find **User Rules** (global, applies to every request)
-3. Paste the contents of `USER_RULES.md`
+### Step 3: Configure User Rules (Optional but Recommended)
 
-### 2) Skills + Workflows
+Copy the contents of `USER_RULES.md` into your AI assistant's global settings:
 
-Antigravity commonly looks for:
+| Assistant | Where to paste |
+|-----------|----------------|
+| Claude Code | Settings → User Rules |
+| Cursor | Settings → Rules for AI |
+| Windsurf | Settings → AI Rules |
+| Other | Look for "system prompt" or "custom instructions" |
 
-- `.agent/skills/**/SKILL.md`
-- `.agent/workflows/*.md`
+### Step 4: Activate
 
-Because Antigravity installations vary, choose one of these options:
+Start any chat with:
 
-#### Option A (Recommended): One global pack + per-project symlink
+```
+/rigor
+```
 
-1. Place this folder somewhere stable, e.g.
-   - macOS/Linux: `~/antigravity-rigor-pack/`
-   - Windows: `%USERPROFILE%\\antigravity-rigor-pack\\`
+---
 
-2. For each project you work on, create a `.agent` link that points to the pack’s `.agent` directory.
+## Installation Options
 
-- macOS/Linux (symlink):
-  - From the project root: create `.agent -> /absolute/path/to/antigravity-rigor-pack/.agent`
+### Option A: Symlink (Recommended)
 
-If you don’t want symlinks, use Option B.
+Best for: Using the same rigor config across multiple projects, with automatic updates.
 
-#### Option B: Copy into each project
+```bash
+# Clone once
+git clone https://github.com/builtbylee/rigor-mode.git ~/rigor-mode
 
-Copy the contents of this pack’s `.agent/` folder into each project root.
+# Link in each project
+cd /path/to/project
+ln -s ~/rigor-mode/.agent .agent
+```
 
-## Usage
+**To update:** `cd ~/rigor-mode && git pull`
 
-### Minimal bootstrap prompt
+### Option B: Copy
 
-Start any new Antigravity chat with:
+Best for: Project-specific customization.
 
-- “Enable Rigor Pack. Follow my User Rules. Use workflows when helpful. Start with the `plan` workflow unless the task is trivial.”
+```bash
+# Clone
+git clone https://github.com/builtbylee/rigor-mode.git ~/rigor-mode
 
-### Common workflows
+# Copy to project
+cp -r ~/rigor-mode/.agent /path/to/project/.agent
+```
 
-- `plan.md`: planning + risks + acceptance criteria
-- `implement.md`: careful implementation protocol
-- `debug.md`: hypothesis-driven debugging
-- `review.md`: code review checklist
-- `verify.md`: verification loop
-- `checkpoint.md`: save state / summarize
+**Note:** You won't get automatic updates, but you can customize freely.
 
-## Notes
+### Option C: Direct clone into project
 
-- This pack intentionally avoids tool hooks that execute commands automatically, because Antigravity’s automation model varies.
-- If Antigravity supports workflow hooks like `// turbo`, you can add them later (after you trust the workflow).
+Best for: One-off use.
+
+```bash
+cd /path/to/project
+git clone https://github.com/builtbylee/rigor-mode.git .rigor-mode
+ln -s .rigor-mode/.agent .agent
+```
+
+---
+
+## Directory Structure After Install
+
+Your project should look like:
+
+```
+your-project/
+├── .agent/              # ← Symlink or copy
+│   ├── agents/
+│   ├── rules/
+│   ├── workflows/
+│   ├── skills/
+│   └── templates/
+├── src/
+├── package.json
+└── ...
+```
+
+---
+
+## Setting Up Project Context
+
+For best results, create a project context file:
+
+```bash
+cp .agent/templates/context.md .agent/context.md
+```
+
+Then edit `.agent/context.md` with your project's details:
+- Tech stack
+- Key directories
+- Common commands
+- Coding conventions
+
+---
+
+## Verify Installation
+
+1. Start a new chat with your AI assistant
+2. Type `/rigor status`
+3. The AI should acknowledge rigor mode
+
+If it doesn't recognize the command, paste this bootstrap prompt:
+
+```
+Enable Rigor Mode.
+
+- Follow the rules in .agent/rules/
+- Use workflows from .agent/workflows/ when tasks match
+- Use agents from .agent/agents/ for specialized work
+- For non-trivial tasks: start with the plan workflow
+- After changes: run the verify workflow
+
+Task: [your task here]
+```
+
+---
+
+## Updating
+
+If you used Option A (symlink):
+
+```bash
+cd ~/rigor-mode
+git pull
+```
+
+All linked projects will automatically use the updated version.
+
+---
+
+## Uninstalling
+
+```bash
+# Remove from a project
+rm /path/to/project/.agent
+
+# Remove completely
+rm -rf ~/rigor-mode
+```
+
+---
+
+## Troubleshooting
+
+**"The AI doesn't follow the workflows"**
+- Check the symlink exists: `ls -la .agent`
+- Try the bootstrap prompt above
+- Ensure User Rules are configured
+
+**"Symlink isn't working"**
+- Use absolute path: `ln -s /Users/you/rigor-mode/.agent .agent`
+- On Windows, use mklink or copy instead
+
+**"I want to customize just one workflow"**
+- Use Option B (copy) for that project
+- Or keep symlink but add project-specific overrides
+
+---
+
+## What's Included
+
+| Component | Count | Purpose |
+|-----------|-------|---------|
+| Agents | 5 | Specialized personas (planner, debugger, etc.) |
+| Rules | 4 | Behavioral guardrails |
+| Workflows | 7 | Step-by-step processes |
+| Skills | 6 | Background capabilities |
+| Templates | 2 | Reusable document structures |
+
+See [README.md](README.md) for full documentation.

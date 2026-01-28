@@ -193,12 +193,18 @@ Reusable document structures in `.agent/templates/`:
 
 ### Setting Up a New Project
 
-1. **Symlink the rigor pack** (recommended):
+1. **Clone rigor-mode** (if you haven't already):
    ```bash
-   ln -s "/Users/lee/Downloads/antigravity-rigor-pack/.agent" .agent
+   git clone https://github.com/builtbylee/rigor-mode.git ~/rigor-mode
    ```
 
-2. **Create project context**:
+2. **Symlink to your project**:
+   ```bash
+   cd /path/to/your/project
+   ln -s ~/rigor-mode/.agent .agent
+   ```
+
+3. **Create project context**:
    ```bash
    cp .agent/templates/context.md .agent/context.md
    # Edit with your project's details
@@ -265,7 +271,7 @@ Skills are background capabilities. They live in `.agent/skills/`.
 
 ### "I want different rules for this project"
 1. Delete the symlink: `rm .agent`
-2. Copy the folder: `cp -r ~/Downloads/antigravity-rigor-pack/.agent .agent`
+2. Copy the folder: `cp -r ~/rigor-mode/.agent .agent`
 3. Edit locally (note: you lose automatic global updates)
 
 ### "Evidence isn't being captured"
